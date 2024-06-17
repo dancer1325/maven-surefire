@@ -7,12 +7,55 @@
   <version>1.0-SNAPSHOT</version>
   <name>testng</name>
   <url>http://maven.apache.org</url>
+
+  <!-- Required -->
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.9.8</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>3.3.0</version>
+
+        <!-- Flexible configuration of the tests to run -->
+        <!--<configuration>
+          <suiteXmlFiles>
+            <suiteXmlFile>testng.xml</suiteXmlFile>
+          </suiteXmlFiles>
+        </configuration>-->
+
+        <!-- Pass parameters via system properties -->
+        <!--<configuration>
+          <systemPropertyVariables>
+            <propertyName>firefox</propertyName>
+          </systemPropertyVariables>
+        </configuration>-->
+
+        <!-- Group tests -->
+        <!--<configuration>
+        <groups>functest,perftest</groups>
+      </configuration>-->
+
+        <!-- Run tests in parallel -->
+        <!--<configuration>
+        <parallel>methods</parallel>
+        <threadCount>10</threadCount>    by default it's 5
+      </configuration>-->
+      </plugin>
+    </plugins>
+  </build>
+
 </project>

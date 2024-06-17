@@ -7,10 +7,10 @@ import static org.testng.Assert.assertEquals;
 /**
  * Unit test for simple App.
  */
-public class AppTest {
+public class AppTestIT {
 
     @Test
-    public AppTest(String testName) {
+    public AppTestIT(String testName) {
         App myClass = new App();
         String message = myClass.getMessage();
         assertEquals(message, "Hello World!");
