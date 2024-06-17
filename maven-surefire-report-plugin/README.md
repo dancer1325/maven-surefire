@@ -1,0 +1,1 @@
+* == Maven Surefire MOJO in `maven-surefire-report-plugin`

@@ -1,0 +1,1 @@
+* == Maven Failsafe MOJO in `maven-failsafe-plugin`

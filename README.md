@@ -41,7 +41,24 @@ Contributing to [Apache Maven Surefire](https://maven.apache.org/surefire/)
 
 [![Maven 3.0 Plugin API](https://img.shields.io/badge/maven%20site-documentation-blue.svg?style=for-the-badge)](https://maven.apache.org/surefire/)
 
-Usage of [maven-surefire-plugin], [maven-failsafe-plugin], [maven-surefire-report-plugin]
+* := Test framework project
+* == 
+  * `surefire-shared-utils` + 
+  * `surefire-logger-api` +
+  * `surefire-api` + 
+  * `surefire-extensions-api` + 
+  * `surefire-extensions-spi` + 
+  * `surefire-booter` +
+  * `surefire-grouper` + 
+  * `surefire-providers` +
+  * `surefire-shadefire` +
+  * `maven-surefire-common` +
+  * `surefire-report-parser` +
+  * `maven-surefire-plugin` +
+  * `maven-failsafe-plugin` + 
+  * `maven-surefire-report-plugin` +
+  * `surefire-its`
+
 
 
 # Development Information
