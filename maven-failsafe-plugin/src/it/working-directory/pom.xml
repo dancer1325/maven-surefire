@@ -42,9 +42,15 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>@project.groupId@</groupId>
-        <artifactId>@project.artifactId@</artifactId>
-        <version>@project.version@</version>
+        <!--<groupId>${project.groupId}</groupId>
+        <artifactId>${project.artifactId}</artifactId>
+        <version>${project.version}</version>-->
+        <!--<groupId>@project.groupId@</groupId>-->
+        <!--<artifactId>@project.artifactId@</artifactId>
+        <version>@project.version@</version>-->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>3.0.0-M5</version>
         <executions>
           <execution>
             <id>integration-test</id>
