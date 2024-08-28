@@ -41,43 +41,38 @@
     else
         use junit3.8.1
     ```
-* TODO
-    Please note that the "else" part of this algorithm is also a FAQ response:
+  * ⚠️ pay attention to hierarchy transitive dependencies ⚠️
+    * run `mvn dependency:tree` 
 
-    You depend on the appropriate version of JUnit being present in the project dependencies, or Surefire may choose the wrong
-    provider. If, for instance, one of your dependencies pulls in JUnit 3.8.1 you risk that surefire chooses the
-    3.8.1 provider, which will not support annotations or any of the 4.x features.
+## Manually Specifying a Provider
 
-    Use <<<mvn dependency:tree>>>, POM dependency ordering and/or exclusion of transitive dependencies to fix this problem.
+* add plugin's dependency "org.apache.maven.surefire:surefire-junit47"
 
-** Manually Specifying a Provider
-
-   You can also manually force a specific provider by adding it as a dependency to ${thisPlugin} itself:
-
-+---+
-<plugins>
-[...]
-  <plugin>
-    <groupId>${project.groupId}</groupId>
-    <artifactId>${project.artifactId}</artifactId>
-    <version>${project.version}</version>
-    <dependencies>
-      <dependency>
-        <groupId>org.apache.maven.surefire</groupId>
-        <artifactId>surefire-junit47</artifactId>
+    ```
+    <plugins>
+    [...]
+      <plugin>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>${project.artifactId}</artifactId>
         <version>${project.version}</version>
-      </dependency>
-    </dependencies>
-  </plugin>
-[...]
-</plugins>
-+---+
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit47</artifactId>
+            <version>${project.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    [...]
+    </plugins>
+    ```
 
-  When using this technique there  is no check that the proper test-frameworks are present on your project's
-  classpath. Failing to add the proper test-frameworks will result in a build failure.
+  * -> directly, this provider will be used
+    * == NOT previously provider selection
 
-* Running Tests in Parallel
+# Running Tests in Parallel
 
+* TODO
   From JUnit 4.7 onwards you can run your tests in parallel. To do this, you must set the
   <<<parallel>>> parameter, and may change the <<<threadCount>>> or <<<useUnlimitedThreads>>> attribute.
   For example:
