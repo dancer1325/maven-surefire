@@ -33,45 +33,33 @@
 * _Examples:_
   * {{{./junit.html#Running_tests_in_parallel}JUnit}}
   * {{{./testng.html#Running_tests_in_parallel}TestNG}}
+* ways to extend parallelism
+  * `useUnlimitedThreads`
+    * == unlimited # of threads
+    * TODO: By default it's `false` ?
+  * `threadCount`
+    * requirements
+      * `useUnlimitedThreads=false`
+    * if it's specified, BUT NOT ANY other `threadCount*` -> 
+      * -- try to optimize -- thread counts | suites, classes or methods
+      * threads -- are replaced in favor of -- `leaf`
+  * `perCoreThreadCount`
+    * by default, `true`
+* ways to impose thread-count limitations | suites, classes or methods / `maven-surefire-plugin` v2.16
+  * `threadCountSuites`
+  * `threadCountClasses`
+  * `threadCountMethods`
+* _Examples:_
+  * _Example1:_ `parallel=all`, `useUnlimitedThreads=true`, `threadCountSuites=3`
+    * == unlimited # of threads / <=3 concurrent threads | suites
+  * _Example2:_ `parallel=classesAndMethods`, `threadCount=8`, `threadCountClasses=3`
+    * parallel methods [5, 7] -- TODO: Why? --
+    * #of concurrent methods NOT strictly limited
+  * _Example3:_ `parallel=all`, `threadCount=16`, `threadCountClasses=2`, `threadCountClasses=3`, `threadCountMethods=5`
+    * -> concurrent suites is 20%, concurrent classes 30%, and concurrent methods 50% -- TODO: Why? -- 
+
 * TODO:
-              The extension of the parallelism is configured using the following parameters.
-              The parameter <<<useUnlimitedThreads>>> allows for an unlimited number of threads.
-              Unless <<<useUnlimitedThreads=true>>>, the parameter <<<threadCount>>> can be used
-              with the optional parameter <<<perCoreThreadCount=true>>> (true by default).
-              The parameters <<<useUnlimitedThreads>>> and <<<threadCount>>> are to be interpreted
-              in the context of the value specified for the <<<parallel>>> parameter.
-  
-              As of ${project.artifactId}:2.16, one can impose thread-count limitations on
-              suites, classes or methods using one or more of the parameters
-              <<<threadCountSuites>>>, <<<threadCountClasses>>> and <<<threadCountMethods>>>.
-              If only <<<threadCount>>> is specified, ${project.artifactId} attempts to
-              <<optimize>> the thread counts for suites, classes and methods and reuses
-              the threads in favor of a <<leaf>>, e.g. parallel methods (optionally
-              increasing concurrent methods).
-  
-              As an example with an unlimited number of threads, there is maximum of three
-              concurrent threads to execute suites:
-              <<<parallel=all>>>, <<<useUnlimitedThreads=true>>>, <<<threadCountSuites=3>>>.
-  
-              In the second example, the number of concurrent methods is not strictly
-              limited:
-              <<<parallel=classesAndMethods>>>, <<<threadCount=8>>>, <<<threadCountClasses=3>>>.
-              Here the number of parallel methods is varying from 5 to 7.
-              Accordingly <<<parallel=all>>>, but the sum of <<<threadCountSuites>>> and
-              <<<threadCountClasses>>> must not exceed certain (<<<threadCount>>> - 1).
-              Other combinations are possible with unspecified thread-count <<leaf>>.
-              Make sure that the <<leaf>> is last from the order suites-classes-methods
-              in <<<parallel>>>.
-  
-              In the third example the thread-counts represent a ratio, e.g. for
-              <<<parallel=all>>>, <<<threadCount=16>>>, <<<threadCountSuites=2>>>,
-              <<<threadCountClasses=3>>>, <<<threadCountMethods=5>>>. Thus the concurrent
-              suites will be 20%, concurrent classes 30%, and concurrent methods 50%.
-  
-              Finally, the <<<threadCount>>> and <<<useUnlimitedThreads>>> may not be
-              necessarily configured if the equivalent thread-counts are specified for the
-              value in <<<parallel>>>.
-  
+ 
               The ${project.artifactId} is trying to reuse threads, thus <<optimize>>
               the thread-counts, and prefers thread fairness. The optimization
               <<<parallelOptimized>>> of the number of Threads is enabled by default in terms
