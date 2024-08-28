@@ -72,45 +72,50 @@
 
 # Running Tests in Parallel
 
+* requirements
+  * JUnit v4.7+
+  * set `parallel` parameter
+    * -> you can also specify `threadCount` or `useUnlimitedThreads`
+* _Example:_
+
+    ```
+    <plugins>
+        [...]
+          <plugin>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.artifactId}</artifactId>
+            <version>${project.version}</version>
+            <configuration>
+              <parallel>methods</parallel>
+              <threadCount>10</threadCount>
+            </configuration>
+          </plugin>
+        [...]
+    </plugins>
+    ```
+
+* consequences
+  * 👁️your request -- will be routed to the -- concurrent JUnit provider / uses the JUnit JUnitCore test runner 👁️
+* use cases
+  * slow tests / can have high concurrency
+* from
+  * Surefire v2.7+ -> NO additional dependencies needed to add
+  * Surefire 2.16+ -> new
+    * thread-count attributes are introduced
+      * `threadCountSuites`
+      * `threadCountClasses`
+      * `threadCountMethods`
+    * attributes / shutdown after certain timeout for the parallel execution
+      * `parallelTestsTimeoutInSeconds`
+      * `parallelTestsTimeoutForcedInSeconds`
+* Check {{{./fork-options-and-parallel-execution.html}Fork Options and Parallel Test Execution}} 
+
+# Using Custom Listeners and Reporters
+
 * TODO
-  From JUnit 4.7 onwards you can run your tests in parallel. To do this, you must set the
-  <<<parallel>>> parameter, and may change the <<<threadCount>>> or <<<useUnlimitedThreads>>> attribute.
-  For example:
-
-+---+
-<plugins>
-    [...]
-      <plugin>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>${project.artifactId}</artifactId>
-        <version>${project.version}</version>
-        <configuration>
-          <parallel>methods</parallel>
-          <threadCount>10</threadCount>
-        </configuration>
-      </plugin>
-    [...]
-</plugins>
-+---+
-
-
-  If your tests specify any value for the <<<parallel>>> attribute and your project uses JUnit 4.7+, your request will be routed to
-  the concurrent JUnit provider, which uses the JUnit JUnitCore test runner.
-
-  This is particularly useful for slow tests that can have high concurrency.
-
-  As of Surefire 2.7, no additional dependencies are needed to use the full set of options with parallel.
-  As of Surefire 2.16, new thread-count attributes are introduced, namely <<<threadCountSuites>>>, <<<threadCountClasses>>> and
-  <<<threadCountMethods>>>. Additionally, the new attributes <<<parallelTestsTimeoutInSeconds>>> and
-  <<<parallelTestsTimeoutForcedInSeconds>>> are used to shut down the parallel execution after an elapsed timeout, and
-  the attribute <<<parallel>>> specifies new values.
-  
-  See also {{{./fork-options-and-parallel-execution.html}Fork Options and Parallel Test Execution}}.
-
-* Using Custom Listeners and Reporters
 
   The junit4 and junit47 providers provide support for attaching custom <<<RunListeners>>> to your tests.
-
+ 
   You can configure multiple custom listeners like this:
 
 +---+
